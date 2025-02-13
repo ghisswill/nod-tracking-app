@@ -1,17 +1,27 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
+import { TranslateModule } from '@ngx-translate/core';
+import { TranslationService } from '../../shared/services/translate/translation.service';
 
 @Component({
   selector: 'app-header',
   standalone: true,
-  imports: [],
+  imports: [TranslateModule],
   templateUrl: './header.component.html',
   styleUrl: './header.component.css'
 })
-export class HeaderComponent {
-  lang: any;
+export class HeaderComponent implements OnInit{
+  
+  lang: string = '';
 
-  changeLang(arg0: string) {
-    throw new Error('Method not implemented.');
+  constructor(private translationService: TranslationService) {}
+
+  ngOnInit() {
+    this.lang = this.translationService.defaultLang.toUpperCase();
+  }
+
+  changeLang(lang: string) {
+    this.translationService.switchLanguage(lang);
+    this.lang = lang.toUpperCase();
   }
 
 }
