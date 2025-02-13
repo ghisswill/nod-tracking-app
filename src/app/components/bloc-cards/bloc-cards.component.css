@@ -1,0 +1,14 @@
+
+.card_structure {
+    display: flex;
+    flex-direction: row;
+    justify-content: start;
+    flex-wrap: wrap;
+    margin: 1rem 0;
+    padding: 1rem;
+  }
+  @media (max-width: 1199px) {
+    #main {
+      padding: 20px;
+    }
+  }
