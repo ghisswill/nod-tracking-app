@@ -1,0 +1,20 @@
+{
+    "languages" : {
+        "french": "French",
+        "english": "English"
+    },
+    "sidebar" : {
+        "menu": {
+            "dashboard": "Dashboard",
+            "groups": "Groups",
+            "cars": "Cars",
+            "users": "Users",
+            "resellers": "Resellers",
+            "helpCenter": "help Center",
+            "reportingCenter": "Reporting Center",
+            "addMaps": "Add Maps",
+            "options": "Options",
+            "virtualBarrier": "Virtual Barrier"
+        }
+    }
+}
