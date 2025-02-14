@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { TranslateModule } from '@ngx-translate/core';
 import { TranslationService } from '../../shared/services/translate/translation.service';
+import { AuthService } from '../../shared/services/auth/auth.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-header',
@@ -13,7 +15,10 @@ export class HeaderComponent implements OnInit{
   
   lang: string = '';
 
-  constructor(private translationService: TranslationService) {}
+  constructor(
+    private translationService: TranslationService,
+    private authService: AuthService,
+    private router: Router) {}
 
   ngOnInit() {
     this.lang = this.translationService.defaultLang.toUpperCase();
@@ -24,4 +29,11 @@ export class HeaderComponent implements OnInit{
     this.lang = lang.toUpperCase();
   }
 
+  logout() {
+    this.authService.logout().subscribe({
+      next: () => {
+        this.router.navigate(['login']);
+      }
+    });
+  }
 }
