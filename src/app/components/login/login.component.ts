@@ -49,7 +49,7 @@ export class LoginComponent implements OnInit, OnDestroy {
   }
 
   goToRegister() {
-    throw new Error('Method not implemented.');
+    this.router.navigate(['/register']);
   }
 
   ngOnDestroy() {
