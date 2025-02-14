@@ -13,6 +13,16 @@ export class InMemoryDataService {
   constructor() {
   }
 
+  // Auth
+  addLogin(reqInfo: RequestInfo): Observable<any> {
+    const user = reqInfo.utils.getJsonBody(reqInfo.req);
+    const userFound = this.data.find(item => item.user.username === user.username && item.user.password === user.password);
+    return reqInfo.utils.createResponse$(() => ({
+      body: userFound,
+      status: 200
+    }));
+  }
+
   // CRUD methods
 
   // GET all users

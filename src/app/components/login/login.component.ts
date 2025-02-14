@@ -1,5 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
+import { Subscription } from 'rxjs';
+import { AuthService, Credentials } from '../../shared/services/auth/auth.service';
+import { User } from '../../shared/models/user.model';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-login',
@@ -8,11 +12,16 @@ import { FormBuilder, FormControl, FormGroup, ReactiveFormsModule, Validators } 
   templateUrl: './login.component.html',
   styleUrl: './login.component.css'
 })
-export class LoginComponent implements OnInit {
+export class LoginComponent implements OnInit, OnDestroy {
 
   form!: FormGroup;
+  private loginSubscription: Subscription | null = null;
+  invalidCredentials: boolean = false;
 
-  constructor(private fb: FormBuilder) { }
+  constructor(
+    private router: Router,
+    private fb: FormBuilder,
+    private authService: AuthService) { }
 
 
   ngOnInit() {
@@ -24,10 +33,26 @@ export class LoginComponent implements OnInit {
   }
 
   login() {
-    throw new Error('Method not implemented.');
+    this.loginSubscription = this.authService.login(this.form.value as Credentials)
+    .subscribe({
+      next: (res: User) => {
+        if(res.userId !== undefined){
+          this.router.navigate(['/dashboard']);
+        } else {
+          this.invalidCredentials = true;
+        }
+      },
+      error: error => {
+        this.invalidCredentials = true;
+      }
+    });
   }
 
   goToRegister() {
     throw new Error('Method not implemented.');
+  }
+
+  ngOnDestroy() {
+    this.loginSubscription?.unsubscribe();
   }
 }
