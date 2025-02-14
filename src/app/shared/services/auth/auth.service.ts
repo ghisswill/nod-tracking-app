@@ -14,7 +14,7 @@ export interface Credentials {
 })
 export class AuthService {
   private usersUrl = 'api/users'; // URL to web api
-  user= new User();
+  user: User | undefined = new User;
 
   constructor(private htpp: HttpClient) { }
 
@@ -36,7 +36,13 @@ export class AuthService {
     const user = userData.find(item => item.user.username === credentials.username
       && item.user.password === credentials.password);
     localStorage.setItem('token', JSON.stringify(user?.token));
-    const userConnected = Object.assign(new User(), user?.user);
-    return of(userConnected);
+    this.user = Object.assign(new User(), user?.user);
+    return of(this.user);
+  }
+
+  logout(): Observable<User> {
+    this.user = new User();
+    localStorage.removeItem('token');
+    return of(this.user);
   }
 }
