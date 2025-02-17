@@ -1,5 +1,7 @@
+import { userMock } from "./user-mock.data";
+
 export class UserData {
-    static users = [
+    static users: userMock[] = [
         {
             token: '',
             user: {
