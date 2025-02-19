@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { Subscription } from 'rxjs';
+import { UserService } from '../../shared/services/user/user.service';
+import { User } from '../../shared/models/user.model';
 
 @Component({
   selector: 'app-register',
@@ -18,28 +20,26 @@ export class RegisterComponent implements OnInit {
 
   constructor(
     private router: Router,
-    private fb: FormBuilder) { }
+    private fb: FormBuilder,
+    private userService: UserService) { }
 
   ngOnInit() {
     this.formCreate = this.fb.group({
-      name: ['', [Validators.required]],
+      lastName: ['', [Validators.required]],
+      firstName: ['', [Validators.required]],
       username: ['', [Validators.required]],
-      password: ['', [Validators.required]],
+      password: ['', Validators.required, Validators.email],
       email: ['', [Validators.required, Validators.email]],
-      confirmPassword: ['', [Validators.required]]
+      phone: ['', [Validators.required, Validators.minLength(10), Validators.maxLength(10)]],
     });
   }
 
   onCreatUser() {
-    if (this.formCreate.valid) {
-      console.log(this.formCreate.value);
-      
-    }
-    
+    const user = Object.assign(new User(), this.formCreate.value)
+    this.userService.create(user).subscribe({
+      next: ((res) => {
+        this.router.navigate(['users']);
+      })
+    });
   }
-
-  goToLogin() {
-    this.router.navigate(['/login']);
-  }
-
 }

@@ -1,1 +1,12 @@
+@if (this.authService.isLoggedIn) {
+<!-- ======= Header ======= -->
+<header id="header" class="header fixed-top d-flex align-items-center">
+    <app-header></app-header>
+</header><!-- End Header -->
+
+<!-- ======= Sidebar ======= -->
+<aside id="sidebar" class="sidebar">
+    <app-sidebar></app-sidebar>
+</aside><!-- End Sidebar-->
+}
 <router-outlet />

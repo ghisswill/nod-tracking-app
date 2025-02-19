@@ -7,12 +7,3 @@
     display: ruby;
     margin-left: 1rem;
 }
-/*--------------------------------------------------------------
-# Main
---------------------------------------------------------------*/
-#main {
-    margin-top: 3.5rem;
-    margin-left: 20rem;
-    margin-right: 2rem;
-    transition: all 0.3s;
-}

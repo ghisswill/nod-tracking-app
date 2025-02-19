@@ -10,7 +10,10 @@ export class UserData {
                 firstName: 'sa',
                 username: 'sa',
                 email: 'sa@sa.com',
-                password: '1234'
+                password: '1234',
+                phone: '0606060606',
+                cars: '',
+                userType: ''
             }
         }
     ];
