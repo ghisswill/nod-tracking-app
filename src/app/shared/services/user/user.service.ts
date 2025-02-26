@@ -16,6 +16,7 @@ export class UserService {
 
   create(item: User): Observable<User> {
     const currentUser = {token: '', user: Object.assign(new User(),item)};
+    currentUser.user.userId = this.users.length + 1;
     this.users.push({token: '', user: currentUser.user});
     return of(currentUser['user']);
   }
@@ -25,7 +26,7 @@ export class UserService {
     return of(user);
   }
 
-  geUsers(): Observable<User[]> {
+  getUsers(): Observable<User[]> {
     const users: User[] = [];
     this.users.map(item => {
       users.push(item.user);
