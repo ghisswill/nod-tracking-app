@@ -1,6 +1,5 @@
-import { userMock } from './../../models/mock/user-mock.data';
+import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { UserData } from '../../models/mock/user.data';
 import { User } from '../../models/user.model';
 import { Observable, of } from 'rxjs';
 
@@ -9,41 +8,28 @@ import { Observable, of } from 'rxjs';
 })
 export class UserService {
 
-  users = UserData.users;
-  userMock?: userMock;
+  apiUserUrl = 'http://localhost:3000/users';
+  users: User[] = [];
 
-  constructor() { }
+  constructor(private http: HttpClient) { }
 
   create(item: User): Observable<User> {
-    const currentUser = {token: '', user: Object.assign(new User(),item)};
-    currentUser.user.userId = this.users.length + 1;
-    this.users.push({token: '', user: currentUser.user});
-    return of(currentUser['user']);
+    return this.http.post<User>(`${this.apiUserUrl}`, item);
   }
 
-  getuser(id: number): Observable<User|undefined> {
-    const user = this.users.find(item => item.user.userId === id)?.user;
-    return of(user);
+  getuser(id: number): Observable<User> {
+    return this.http.get<User>(`${this.apiUserUrl}/${id}`)
   }
 
   getUsers(): Observable<User[]> {
-    const users: User[] = [];
-    this.users.map(item => {
-      users.push(item.user);
-    })
-    return of(users);
+    return this.http.get<User[]>(`${this.apiUserUrl}`);
   }
 
   update(updateUser: User): Observable<User> {
-    this.userMock = this.users.find(item => item.user.userId === updateUser.userId);
-    //this.userMock.user = this.userMock?.user ? updateUser : null;
-    return of(updateUser);
+    return this.http.put<User>(`${this.apiUserUrl}/${updateUser.id}`, updateUser);
   }
 
   delete(id: number): Observable<User|undefined> {
-    const index = this.users.findIndex(item => item.user.userId === 1);
-    const user = this.users.find(item => item.user.userId === id)?.user;
-    this.users.splice(index, 1);
-    return of(user);
+    return this.http.delete<User>(`${this.apiUserUrl}/${id}`);
   }
 }

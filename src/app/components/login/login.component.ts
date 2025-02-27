@@ -36,7 +36,7 @@ export class LoginComponent implements OnInit, OnDestroy {
     this.loginSubscription = this.authService.login(this.form.value as Credentials)
     .subscribe({
       next: (res: User) => {
-        if(res.userId !== undefined){
+        if(res.id !== undefined){
           this.router.navigate(['/dashboard']);
         } else {
           this.invalidCredentials = true;

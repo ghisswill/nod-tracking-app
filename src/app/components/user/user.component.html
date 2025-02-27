@@ -32,7 +32,7 @@
                     <tbody>
                         @for (user of users; track $index) {
                         <tr>
-                            <td>{{user.userId}}</td>
+                            <td>{{user.id}}</td>
                             <td>{{user.lastName}}</td>
                             <td>{{user.firstName}}</td>
                             <td>{{user.username}}</td>
@@ -41,7 +41,7 @@
                             <td>{{user.phone}}</td>
                             <td>
                                 <a [routerLink]="[ '/register']"
-                                [queryParams]="{ id: user.userId}" title="Edit" data-toggle="tooltip"><i
+                                [queryParams]="{ id: user.id}" title="Edit" data-toggle="tooltip"><i
                                         class="fa-solid fa-pencil material-icons"></i></a>
                                 <a (click)="deleteUser(user)" class="delete" title="Delete" data-toggle="tooltip"><i
                                         class="fa-solid fa-trash-can material-icons"></i></a>
