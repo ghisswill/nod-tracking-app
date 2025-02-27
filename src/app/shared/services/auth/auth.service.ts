@@ -2,7 +2,6 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { map, Observable, of, tap } from 'rxjs';
 import { User } from '../../models/user.model';
-import { UserData } from '../../models/mock/user.data';
 
 export interface Credentials {
   username: string;
@@ -13,13 +12,14 @@ export interface Credentials {
   providedIn: 'root'
 })
 export class AuthService {
-  private usersUrl = 'api/users'; // URL to web api
-  user: User | undefined = new User;
+  private apiUserUrl = 'http://localhost:3000/users'; // URL to web api
+  user!: User;
+  public isLoggedIn: boolean = false;
 
   constructor(private htpp: HttpClient) { }
 
   // login(credentials: Credentials): Observable<User> {
-  //   return this.htpp.post<any>(this.usersUrl, credentials).pipe(
+  //   return this.htpp.get<User>(``).pipe(
   //     tap((res) => {
   //       localStorage.setItem('token', res['token']);
   //       const user = Object.assign(new User(), res['user']);
@@ -32,17 +32,21 @@ export class AuthService {
   // }
 
   login(credentials: Credentials): Observable<User> {
-    const userData = UserData.users;
-    const user = userData.find(item => item.user.username === credentials.username
-      && item.user.password === credentials.password);
-    localStorage.setItem('token', JSON.stringify(user?.token));
-    this.user = Object.assign(new User(), user?.user);
-    return of(this.user);
+    return this.htpp.get<User>(`${this.apiUserUrl}?username=${credentials.username}&password=${credentials.password}`).pipe(
+      tap((res: any)=>{
+        this.user = Object.assign(new User(),res[0]);
+        this.isLoggedIn = true;
+        localStorage.setItem('userConnected', JSON.stringify(this.user));
+      }),
+      map((res)=>{
+        return this.user;
+      })
+    );
   }
 
   logout(): Observable<User> {
-    this.user = new User();
-    localStorage.removeItem('token');
+    this.isLoggedIn = false;
+    localStorage.removeItem('userConnected');
     return of(this.user);
   }
 }

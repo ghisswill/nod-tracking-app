@@ -5,8 +5,6 @@ import { routes } from './app.routes';
 import { HttpClient, provideHttpClient } from '@angular/common/http';
 import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
-import { InMemoryWebApiModule } from 'angular-in-memory-web-api';
-import { InMemoryData } from './shared/models/mock/in-memory-data';
 
 export function HttpLoaderFactory(http: HttpClient) {
   return new TranslateHttpLoader(http, './assets/i18n/', '.json');
@@ -15,7 +13,6 @@ export function HttpLoaderFactory(http: HttpClient) {
 export const appConfig: ApplicationConfig = {
   providers: [
     importProvidersFrom(
-      InMemoryWebApiModule.forRoot(InMemoryData, {delay: 1000}),
       TranslateModule.forRoot({
         loader: {
           provide: TranslateLoader,

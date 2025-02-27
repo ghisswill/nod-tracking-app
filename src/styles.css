@@ -1,1 +1,13 @@
 /* You can add global styles to this file, and also import other style files */
+.btn-goTo {
+    cursor: pointer;
+}
+/*--------------------------------------------------------------
+# Main
+--------------------------------------------------------------*/
+#main {
+    margin-top: 3.5rem;
+    margin-left: 20rem;
+    margin-right: 2rem;
+    transition: all 0.3s;
+}
