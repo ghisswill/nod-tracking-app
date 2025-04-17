@@ -8,9 +8,15 @@ export class User {
         public password?: string,
         public phone?: string,
         public cars?: string,
-        public userType?: string[]
+        public type?: string[]
     ) {}
 }
+
+export enum Roles {
+    ADMINISTRATOR = 'admin',
+    USER = 'user'
+}
+
 
 // id: 
 // f_username: 
