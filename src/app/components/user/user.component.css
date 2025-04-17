@@ -127,3 +127,8 @@ table.table td i {
 .button-actions {
     display: flex;
 }
+.button-actions > .buton-action-item > button {
+    border-radius: 15% !important;
+    background-color: white;
+    color: black;
+}

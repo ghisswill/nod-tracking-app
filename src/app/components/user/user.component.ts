@@ -44,6 +44,12 @@ export class UserComponent implements OnInit {
     });
   }
 
+  editUser(user: User) {
+    const ref = this.dialoService.open(RegisterComponent, {
+      data: {user: user}
+    })
+  }
+
   deleteUser(user: User) {
     if (user.id)
       this.userService.delete(user.id).subscribe({
@@ -54,8 +60,9 @@ export class UserComponent implements OnInit {
   }
 
   showPopup() {
-    const ref = this.dialoService.open(RegisterComponent, {}
+    const ref = this.dialoService.open(RegisterComponent, {
+      data: {user: null}
+    }
     );
   }
-
 }
