@@ -1,4 +1,4 @@
-.table-responsive {
+/* .table-responsive {
     margin: 30px 0;
 }
 .table-wrapper {
@@ -111,4 +111,19 @@ table.table td i {
 .modal-dialog {
     max-width: 60%;
     height: 100vh;
+} */
+.card {
+    margin-top: 5%;
+    margin-left: 21%;
+    margin-right: 1%;
+}
+.card > .p-database-headeer > div {
+    width: auto;
+} 
+.card .p-datatable-header {
+    display: flex !important;
+    justify-content: space-between !important;
+}
+.button-actions {
+    display: flex;
 }

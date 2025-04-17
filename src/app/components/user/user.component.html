@@ -1,70 +1,56 @@
-<main id="main" class="main">
-    <div class="container-fluid">
-        <div class="table-responsive">
-            <div class="table-wrapper">
-                <div class="table-title">
-                    <div class="row">
-                        <div class="col-sm-8">
-                            <h2>Customer <b>List</b></h2>
-                            <a [routerLink]="[ '/register']"> <i class="fa-solid fa-user-plus"></i></a>
-                        </div>
-                        <div class="col-sm-4">
-                            <div class="search-box">
-                                <i class="fa-solid fa-magnifying-glass material-icons"></i>
-                                <input type="text" class="form-control" placeholder="Search&hellip;">
-                            </div>
-                        </div>
-                    </div>
+<div class="card">
+    <p-table #dt2 dataKey="id" [value]="users" [paginator]="true"
+        [globalFilterFields]="['name', 'country.name', 'representative.name', 'status']" [rows]="5"
+        [tableStyle]="{ 'min-width': '50rem' }" [rowsPerPageOptions]="[5, 10, 20]">
+        <ng-template pTemplate="caption">
+            <div class="p-datatable-header">
+                <div>
+                    @if (isEdited) {
+                        <p-button label="User" icon="pi pi-plus" (onClick)="showPopup()" />
+                    }
                 </div>
-                <table class="table table-striped table-hover table-bordered">
-                    <thead>
-                        <tr>
-                            <th>#</th>
-                            <th>LastName <i class="fa fa-sort"></i></th>
-                            <th>FirstName</th>
-                            <th>Username <i class="fa fa-sort"></i></th>
-                            <th>email</th>
-                            <th>password <i class="fa fa-sort"></i></th>
-                            <th>Phone num. <i class="fa fa-sort"></i></th>
-                            <th>Actions</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        @for (user of users; track $index) {
-                        <tr>
-                            <td>{{user.id}}</td>
-                            <td>{{user.lastName}}</td>
-                            <td>{{user.firstName}}</td>
-                            <td>{{user.username}}</td>
-                            <td>{{user.email}}</td>
-                            <td>******************</td>
-                            <td>{{user.phone}}</td>
-                            <td>
-                                <a [routerLink]="[ '/register']"
-                                [queryParams]="{ id: user.id}" title="Edit" data-toggle="tooltip"><i
-                                        class="fa-solid fa-pencil material-icons"></i></a>
-                                <a (click)="deleteUser(user)" class="delete" title="Delete" data-toggle="tooltip"><i
-                                        class="fa-solid fa-trash-can material-icons"></i></a>
-                            </td>
-                        </tr>
-                        }
-
-                    </tbody>
-                </table>
-                <div class="clearfix">
-                    <div class="hint-text">Showing <b>5</b> out of <b>25</b> entries</div>
-                    <ul class="pagination">
-                        <li class="page-item disabled"><a href="#"><i class="fa fa-angle-double-left"></i></a></li>
-                        <li class="page-item"><a href="#" class="page-link">1</a></li>
-                        <li class="page-item"><a href="#" class="page-link">2</a></li>
-                        <li class="page-item active"><a href="#" class="page-link">3</a></li>
-                        <li class="page-item"><a href="#" class="page-link">4</a></li>
-                        <li class="page-item"><a href="#" class="page-link">5</a></li>
-                        <li class="page-item"><a href="#" class="page-link"><i class="fa fa-angle-double-right"></i></a>
-                        </li>
-                    </ul>
+                <div>
+                    <p-iconField iconPosition="left" class="ml-auto">
+                        <p-inputIcon>
+                            <i class="pi pi-search"></i>
+                        </p-inputIcon>
+                        <input pInputText type="text" (input)="dt2.filterGlobal($any($event.target).value, 'contains')"
+                            placeholder="Search keyword" />
+                    </p-iconField>
                 </div>
             </div>
-        </div>
-    </div>
-</main>
+        </ng-template>
+        <ng-template pTemplate="header">
+            <tr>
+                <th style="width:20%">ID</th>
+                <th style="width:20%">Name</th>
+                <th style="width:20%">Prenom</th>
+                <th style="width:20%">username</th>
+                <th style="width:20%">email</th>
+                <th style="width:20%">Mot de passe</th>
+                <th style="width:20%">N° telephone</th>
+                @if (isEdited) {
+                <th style="width:20%">Actions</th>
+                }
+            </tr>
+        </ng-template>
+        <ng-template pTemplate="body" let-user>
+            <tr>
+                <td>{{user.id}}</td>
+                <td>{{user.lastName}}</td>
+                <td>{{user.firstName}}</td>
+                <td>{{user.username}}</td>
+                <td>{{user.email}}</td>
+                <td>******************</td>
+                <td>{{user.phone}}</td>
+                @if (isEdited) {
+                <td class="button-actions">
+                    <p-button icon="pi pi-check" />
+                    <p-button icon="pi pi-trash" />
+                    <p-button icon="pi pi-times" />
+                </td>
+                }
+            </tr>
+        </ng-template>
+    </p-table>
+</div>
