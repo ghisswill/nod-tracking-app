@@ -12,13 +12,26 @@
       "cars": []
     },
     {
-      "id": "6310",
-      "lastName": "TEST",
-      "firstName": "test",
-      "username": "test",
-      "email": "test@test.com",
-      "password": "123",
-      "phone": "11111111111"
+      "id": "2",
+      "lastName": "admin",
+      "firstName": "admin",
+      "username": "admin",
+      "email": "admin@sa.com",
+      "password": "1234",
+      "phone": "0606060606",
+      "type": "admin",
+      "cars": []
+    },
+    {
+      "id": "3",
+      "lastName": "will",
+      "firstName": "ghiss",
+      "username": "ghiss",
+      "email": "ghiss@sa.com",
+      "password": "1234",
+      "phone": "0606060606",
+      "type": "user",
+      "cars": []
     }
   ]
 }
