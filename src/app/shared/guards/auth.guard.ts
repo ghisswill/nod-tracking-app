@@ -6,9 +6,10 @@ import { User } from '../models/user.model';
 export const authGuard: CanActivateFn = (route, state) => {
   const authService = inject(AuthService)
   const router = inject(Router);
-  const user:User = authService.user?.id !== undefined ? authService.user : JSON.parse(localStorage.getItem('userConnected') || '');
+  let newObject = localStorage.getItem("userConnected") || '';
+  let user: User = newObject != '' ? JSON.parse(newObject) : undefined;
 
-  if (user === undefined|| user.id === undefined || user.id === null ) {
+  if (user?.id === undefined || user?.id === null ) {
     router.navigate(['login']);
     return false;
   }

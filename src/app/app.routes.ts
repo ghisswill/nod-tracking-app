@@ -8,7 +8,7 @@ import { UserComponent } from './components/user/user.component';
 export const routes: Routes = [
     {path: 'dashboard', component: DashboardComponent, canActivate: [authGuard]},
     {path: 'login', component: LoginComponent},
-    {path: 'register', component: RegisterComponent},
+    {path: 'register', component: RegisterComponent, canActivate: [authGuard]},
     {path: 'users', component: UserComponent, canActivate: [authGuard]},
     {path: '', redirectTo: 'dashboard', pathMatch: 'full'}
 ];

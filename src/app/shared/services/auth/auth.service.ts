@@ -13,7 +13,7 @@ export interface Credentials {
 })
 export class AuthService {
   private apiUserUrl = 'http://localhost:3000/users'; // URL to web api
-  user!: User;
+  public userConnected!: User;
   public isLoggedIn: boolean = false;
 
   constructor(private htpp: HttpClient) { }
@@ -34,12 +34,12 @@ export class AuthService {
   login(credentials: Credentials): Observable<User> {
     return this.htpp.get<User>(`${this.apiUserUrl}?username=${credentials.username}&password=${credentials.password}`).pipe(
       tap((res: any)=>{
-        this.user = Object.assign(new User(),res[0]);
+        this.userConnected = Object.assign(new User(),res[0]);
         this.isLoggedIn = true;
-        localStorage.setItem('userConnected', JSON.stringify(this.user));
+        localStorage.setItem('userConnected', JSON.stringify(this.userConnected));
       }),
       map((res)=>{
-        return this.user;
+        return this.userConnected;
       })
     );
   }
@@ -47,6 +47,6 @@ export class AuthService {
   logout(): Observable<User> {
     this.isLoggedIn = false;
     localStorage.removeItem('userConnected');
-    return of(this.user);
+    return of(this.userConnected);
   }
 }
