@@ -119,22 +119,10 @@
         </li><!-- End Cars Nav -->
 
         <li class="nav-item">
-            <a class="nav-link collapsed" data-bs-target="#tables-nav" data-bs-toggle="collapse" href="#">
+            <a class="nav-link collapsed" data-bs-target="#tables-nav" data-bs-toggle="collapse" href="#" [routerLink]="[ '/users']">
                 <i class="fa-solid fa-users"></i>
-                <span>{{'sidebar.menu.users' | translate}}</span><i class="fa-solid fa-chevron-down ms-auto"></i>
+                <span>{{'sidebar.menu.users' | translate}}</span>
             </a>
-            <ul id="tables-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
-                <li>
-                    <a [routerLink]="[ '/users']">
-                        <i class="bi bi-circle"></i><span>Managers users</span>
-                    </a>
-                </li>
-                <li>
-                    <a [routerLink]="[ '/users']">
-                        <i class="bi bi-circle"></i><span>voir users</span>
-                    </a>
-                </li>
-            </ul>
         </li><!-- End Tables Nav -->
 
         <li class="nav-item">
